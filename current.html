@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}- current{% endblock %}
+{% block main %}
+<p>My current inventory is where all your items are stored from adding the items on the add items page.
+     On this page you can click the show all button which will show all items in your inventory,
+    which makes it convenient if you want to print this page. You can also click the collapse button if you want to hide everything and only the categories,
+    quantity and subtotal will show. You can also update the quantity or decrease your quantity and click update to save your changes and this will up date your inventory. Use the help button to see how to for this page.
+
+</p>
+<div class="text-center">
+    <button class="btn btn-small my-3  btn-primary" id="collapse-all" type="button">
+        Collapse All
+    </button>
+    <button class="btn btn-small my-3  btn-primary" id="show-all" type="button">
+        Show All
+    </button>
+    <!-- Button trigger modal -->
+    <button class="btn btn-small my-3  btn-primary" data-target="#help" data-toggle="modal" type="button">
+        Help
+    </button>
+</div>
+<div class="accordion" id="product_accordion">
+     <div class="card border-primary">
+         <div class="card-header" >
+            <h5 class="mb-0">
+                 <div class="row no-gutter">
+                    <div class="col-4">Totals</div>
+                        <div class="col-4 text-center"> Quantity: {{ totals["qty"]}}</div>
+                          <div class="col-4 text-right"> Total Cost: {{ "$%.2f"|format(totals["total"]|float) }}</div>
+                    </div>
+            </h5>
+         </div>
+     </div>
+    {% for category in categories %}
+    <div class="card border-primary">
+        <div class="card-header" id="heading{{category['id']}}">
+            <h2 class="mb-0">
+                <button aria-controls="collapse{{category['id']}}" aria-expanded="true" class="btn btn-link {% if loop.index>1 %}collapsed{% endif %} btn-block text-left"
+                        data-target="#collapse{{category['id']}}" data-toggle="collapse"
+                        type="button">
+                    <div class="row no-gutter">
+                    <div class="col-4">{{category['name']}}</div>
+                        <div class="col-4 text-center"> Quantity: {{ category["qty"]}}</div>
+                          <div class="col-4 text-right"> Subtotal: {{ "$%.2f"|format(category["total"]|float) }}</div>
+                    </div>
+                </button>
+            </h2>
+        </div>
+
+        <section aria-labelledby="heading{{category['id']}}" class="collapse {% if loop.index==1 %}show{% endif %}" data-parent="#product_accordion"
+             id="collapse{{category['id']}}">
+            <div class="card-body">
+                {% for product in products %}
+                {% if product["cat_id"]==category["id"] %}
+                <li class='list-group-item'>
+                    <form action='/current' id='item{{product["id"]}}' method='post'>
+                        <div class="row no-gutter">
+                            <div class="col-4 col-md-2">{{category["name"]}}</div>
+                            <div class="col-5 col-md-3">{{product["name"]}}</div>
+
+                            <div class="d-none"><input class='form-control form-control-sm' name='id' required
+                                                       form='item{{product["id"]}}'
+                                                       type='number' value='{{product["id"]}}'/></div>
+                            <div class="col-3 col-md-2"><input class='form-control form-control-sm' max='100'
+                                                               min='0' form='item{{product["id"]}}'
+                                                               name='qty' placeholder="qty" required type='number'
+                                                               value='{{product["qty"]}}'/></div>
+                            <div class="col-5 col-md-2"><input class='form-control form-control-sm' name='exp'
+                                                               placeholder="exp date" form='item{{product["id"]}}'
+                                                               required type='date' value='{{product["exp_date"]}}'/></div>
+                            <div class="col-5 col-md-2"><input class='form-control form-control-sm' max='10000'
+                                                               min='0' form='item{{product["id"]}}'
+                                                               name='cost' placeholder="cost" required step='.01'
+                                                               type='number' value='{{product["price"]}}'/></div>
+                            <div class="col-2 col-md-1"><input class='form-control form-control-sm' type='submit'
+                                                               value='update' form='item{{product["id"]}}'/></div>
+                        </div>
+                    </form>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+
+    {% endfor %}
+</div>
+
+<!-- helper button-->
+<div aria-hidden="true" aria-labelledby="helpLabel" class="modal fade" id="help" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="helpLabel">Help</h5>
+
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+             <div class="modal-body">
+                The Collapse all will hide everything and will only show the category titles. The Show all button will show all the inventory that you have stored.
+                <figure class="w-100"><img alt="buttonshelp"
+                                           class="img-fluid"
+                                           src="{{ url_for('static',filename='img/img2/modify8.png') }}"></figure>
+                 <div class="modal-body">
+               The yellow arrows show the grand total for all quantity and cost that is in your inventory. Each category will show the quantities and subtotal. This can be useful keeping track of inventory.
+                <figure class="w-100"><img alt="helpers"
+                                           class="img-fluid"
+                                           src="{{ url_for('static',filename='img/img2/modify9.png') }}"></figure>
+            <div class="modal-body">
+                Your current inventory page will have different category for each items. For example Steaks was added on the add items page which is in the
+                category for Meats & Seafood. click the Meats & Seafood and it will show your current inventory for this category.
+
+                <figure class="w-100"><img alt="currentInventory"
+                                           class="img-fluid"
+                                           src="{{ url_for('static',filename='img/img2/modify6.png') }}"></figure>
+                <p> After clicking the Steak & Sea food category the Sirloin steak will appear.
+                </p>
+                <figure class="w-100"><img alt="category item"
+                                           class="img-fluid"
+                                           src="{{ url_for('static',filename='img/img2/modify5.png') }}"></figure>
+                <p>The sirloin steak in the your current inventory. Here if you eat one of the steaks you can click the bottom arrow
+                    to remove one steak from the quantity and the press update or to totally remove from your inventory enter 0 in the quantity and click the update button.
+                </p>
+                <figure class="w-100"><img alt="update invenory"
+                                           class="img-fluid"
+                                           src="{{ url_for('static',filename='img/img2/modify7.png') }}"></figure>
+                <!-- video-->
+
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe allowfullscreen class="embed-responsive-item" frameborder="0" height="316"
+                            mozallowfullscreen
+                            scrolling="no"
+                            src="https://www.screencast.com/users/nickmenough/folders/Capture/media/34cda118-47c9-44a9-970d-e0d90d4bcf6d/embed" style="overflow:hidden;" type="text/html" webkitallowfullscreen width="658"></iframe>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="{{ url_for('static',filename='js/current.js') }}"></script>
+{% endblock %}

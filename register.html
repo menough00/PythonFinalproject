@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}- register{% endblock %}
+{% block main %}
+
+
+
+<p>
+
+</p>
+<div class="card mx-auto" style="width: 18rem;">
+	<div class="card-body">
+		<h5 class="card-title text-center">Register</h5>
+
+		<form action="/register" method="post">
+			<div class="form-group">
+				<label for="username">Username:</label>
+				<input type="text" class="form-control" id="username" name="username" aria-describedby="username"
+				required>
+			</div>
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" class="form-control" id="password" name="password"
+				required>
+			</div>
+			<div class="form-group">
+				<label for="confirm">Repeat Password</label>
+				<input type="password" class="form-control" id="confirm" name="confirm" required>
+			</div>
+			<div class="form-group">
+				<label for="name">Name</label>
+				<input type="text" class="form-control" id="name" name="name" required>
+			</div>
+			<div class="form-group">
+				<label for="email">Email</label>
+				<input type="email" class="form-control" id="email" name="email" required>
+			</div>
+
+			<div class="form-group">
+				<label for="sec-q1">Security Question #1</label>
+				<input type="text" class="form-control" id="sec-q1" name="sec-q1" required>
+				<label for="sec-a1">Answer #1</label>
+				<input type="text" class="form-control" id="sec-a1" name="sec-a1" required>
+			</div>
+			<div class="form-group">
+				<label for="sec-q2">Security Question #2</label>
+				<input type="text" class="form-control" id="sec-q2" name="sec-q2" required>
+				<label for="sec-a2">Answer #1</label>
+				<input type="text" class="form-control" id="sec-a2" name="sec-a2" required>
+			</div>
+
+			<button type="submit" class="btn btn-primary">Submit</button>
+			<button type="Cancel" class="btn btn-primary">Cancel</button>
+		</form>
+	</div>
+</div>
+
+{% endblock %}

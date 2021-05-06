@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}- home{% endblock %}
+{% block main %}
+
+<div class="jumbotron bg-transparent">
+	<div class="row no-gutter d-flex align-items-center">
+
+		<div class="col-12 col-md-6 col-lg-8">
+			<h2>Hello{% if "name" in session %}, {{session.name}}{% endif %}! </h2>
+			<p>Taking a trip to your local grocery store for your weekly groceries can be a hassle sometimes, especially
+				if you forgot your list, did not make a list or don’t remember your food inventory or
+				essentials that you’ve in stock at home. Having over stock items of food, essentials that are soon to be expired
+				can cost consumers money and be bad for our ecological footprint. According to statistics and research,
+				the United states is the leader of food waste.About 40 million tons of food per year with the average person of 219lbs per person,
+				due to spoilage food.
+			</p>
+		</div>
+		<figure class="col-12 col-md-6 col-lg-4 ">
+			<img src="{{ url_for("static",filename="img/fridge.jpeg") }}" alt="image of open refrigerator"
+			class="img-fluid">
+
+		</figure>
+	</div>
+</div>
+<div class="card-deck mb-2 clearfix">
+	<div class="card">
+		<img src="{{ url_for("static",filename="img/waste.jpeg") }}" class="card-img-top" alt="...">
+		<div class="card-body">
+			<h5 class="card-title">Food Waste</h5>
+			<p class="card-text">About 40 million tons of food per year with the average person of 219lbs per person,
+				due to spoilage food.MyPantryy can help with knowing what is about to be expired so it can be used instead of throwing away. </p>
+		</div>
+	</div>
+	{% if "userID" not in session %}
+	<div class="card d-flex align-items-center">
+		<div class="card-body ">
+			<h5 class="card-title">Start your Journey today!</h5>
+			<h6 class="card-subtitle mb-2 text-muted">Inventory control and task manager</h6>
+			<p class="card-text">Create account or register to start controlling your inventory and save money by not wasting food.
+				Today you can change your ecological footprint by not wasting food by buying to much or do to food
+				spoilage.</p>
+			<hr/>
+			<a href="/login" class="card-link">Login</a>
+			<a href="/register" class="card-link">Register</a>
+		</div>
+	</div>
+	{% endif %}
+	<div class="card">
+		<img src="{{ url_for("static",filename="img/inventory.jpg") }}" class="card-img-top" alt="...">
+		<div class="card-body">
+			<h5 class="card-title">Inventory</h5>
+			<p class="card-text">Consumer will have inventory control by using MyPantryy.com for their household food items and essentials. Once a user creates account they will be able to update their
+				inventory on the update page. A user then can search for item or create custom items, modify their items with quantity, cost for per item, and expiration for the item. This will then
+			update to the current inventory for the user. On the current inventory the user will be able to see whats in their pantry, refrigerator and essential they have in stock. Not only will they know their
+			quantity, but they will know whats about to be expired an how much they're spending weekly, monthly, and annually.</p>
+		</div>
+	</div>
+</div>
+{% endblock %}

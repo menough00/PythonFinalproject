@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+
+{% block title %}- update{% endblock %}
+{% block main %}
+
+<p>     Start adding items to your personal inventory. Search for an item or if the item does not appear,
+    type it in the text box that says add new custom item. Then use the drop-down boxes to put the custom item in a category.
+    Use the up and down arrows or enter a number value for the quantity and cost per item. The expiration date is for items that have expiration dates. The last thing is to click the plus button to add items to current inventory. After adding the item, you will be able to see this new added item on your current inventory page. The current inventory page is where you’ll see your current inventory for pantry items, refrigerator items and essentials you have in stock. Press the Help button to see examples and a video. </p>
+<div class="row mb-2">
+    <div class="card col-12 col-md-4 col-lg-3">
+        <h5 class="card-header">Product Search</h5>
+
+        <div class="card-body">
+            <form action="false;" method="post">
+                <div class="form-group">
+
+                    <input class="form-control" id="product" name="product" placeholder="Product" required type="text">
+                </div>
+                <div class="form-group">
+                    <label for="category">Category (Optional)</label>
+                    <select class="form-control" id="category" name="category">
+                        <option selected value="0">None</option>
+                        {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" id="custom" name="custom" type="checkbox" value="1">
+                    <label class="form-check-label" for="custom">
+                        Custom Product
+                    </label>
+                </div>
+
+            </form>
+            <div class="text-center">
+                <!-- Button trigger modal -->
+                <button class="btn btn-small my-3  btn-primary" data-target="#help" data-toggle="modal" type="button">
+                    Help
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-8 col-lg-9">
+        <!-- Replaced table with list group for better styling
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Category</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Expiration Date</th>
+                <th scope="col">Cost per item</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody id="product_form">
+
+            <tr>
+                <th class="text-center" colspan="6" scope="row">No Results</th>
+
+            </tr>
+            </tbody>
+        </table>
+        -->
+        <ul class="list-group " id="product-form">
+            <li class="list-group-item">
+                <div class="row no-gutter">
+                    <div class="col-5 col-md-3">Name</div>
+                    <div class="col-4 col-md-2">Category</div>
+                    <div class="col-3 col-md-2">Quantity</div>
+                    <div class="col-5 col-md-2">Expiration Date</div>
+                    <div class="col-5 col-md-2">Cost per item</div>
+                    <div class="col-2 col-md-1">Add Item</div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="row no-gutter">
+                    <div class="col-12">No Results</div>
+                </div>
+            </li>
+        </ul>
+        <ul class="list-group" id="new-product-form">
+            <li class='list-group-item'>
+                <label for="addNew">Add new custom item</label>
+                <form action='/add_new' id='addNew' method='post'>
+                    <div class="row no-gutter">
+                        <div class="col-5 col-md-3"><input class='form-control form-control-sm' name='name' required
+                                                   id="new-name" type='text' placeholder="Name" /></div>
+                        <div class="col-4 col-md-2"> <select class="form-control form-control-sm" id="new-category" name="category">
+
+                        {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select></div>
+
+                        <div class="col-3 col-md-2"><input class='form-control form-control-sm' max='100'
+                                                           min='0' name='qty' placeholder="qty" required type='number'/>
+                        </div>
+                        <div class="col-5 col-md-2"><input class='form-control form-control-sm' name='exp'
+                                                           placeholder="exp date" required type='date'/></div>
+                        <div class="col-5 col-md-2"><input class='form-control form-control-sm' max='10000'
+                                                           min='0' name='cost' placeholder="cost" required
+                                                           step='.01' type='number'/></div>
+                        <div class="col-2 col-md-1"><input class='form-control form-control-sm' type='submit'
+                                                           value='+'/></div>
+                    </div>
+                </form>
+            </li>
+
+        </ul>
+    </div>
+
+
+    <!-- Modal -->
+    <div aria-hidden="true" aria-labelledby="helpLabel" class="modal fade" id="help" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="helpLabel">Help</h5>
+
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    To add to your inventory enter a item in the product search text box. A list will auto generate and select the item that you want.For instance you have searched for steak.
+                    <figure class="w-100"><img alt="search"
+                                               class="img-fluid"
+                                               src="{{ url_for('static',filename='img/img2/search.PNG') }}"></figure>
+                    <p> Steak was entered and now two items appear steak and beefsteak tomatoes. You will be able modify
+                        the quantity, date, and the cost for this item.
+                        The quantity is for how many steaks to want to add to your inventory. The expiration date is for when the item
+                        is going to expire if there is no expiration date then leave this empty. Enter the cost per item or the total amount such as there are two steaks with the cost being $20.00.After
+                        you have finished these inputs then click the plus button and that item will be
+                        added to your current inventor</p>
+                    <figure class="w-100"><img alt="Inputsearch"
+                                               class="img-fluid"
+                                               src="{{ url_for('static',filename='img/img2/modify1.png') }}"></figure>
+                    <p>You can also use the drop down under category for instance steak is in Meat and Seafood. The item now appears to
+                        the right. Now input your quantity, expiration date, cost and press the plus button to add your
+                        current
+                        inventory.</p>
+                    <figure class="w-100"><img alt="Dropdownsearch"
+                                               class="img-fluid"
+                                               src="{{ url_for('static',filename='img/img2/modify2.PNG') }}"></figure>
+                    <p>To add an custom item such as Roaster eggs. Type in Rooster Eggs in the add new custom items text box.Yes, we know Rooster don't lay
+                        eggs. Then use the category drop down menu and select dairy and then input the quantity, expiration date, and cost per item. Finally click the plus button to add item to
+                    your inventory</p>
+                    <figure class="w-100"><img alt="Customsearch"
+                                               class="img-fluid"
+                                               src="{{ url_for('static',filename='img/img2/modify3.PNG') }}"></figure>
+                    <p>Now your Rooster Egg is added to your inventory you will be able to search for this item in the search for product by typing in Rooster egg and checking the custom product checkbox. The item
+                    should appear on the right side. This is where you can add more Rooster eggs to your current inventory.</p>
+                    <h3 class="display-5"><img alt="ItemAdded"
+                                               class="img-fluid"
+                                               src="{{ url_for('static',filename='img/img2/modify4.png') }}"></h3>
+                     <p>Now that we have added a steak and Rooster egg you can view them on the current inventory page or keep on adding more items. Watch the video to see these processes in action. </p>
+
+                        <iframe allowfullscreen class="embed-responsive-item" frameborder="0" height="316"
+                                mozallowfullscreen
+                                scrolling="no"
+                                src="https://www.screencast.com/users/nickmenough/folders/Capture/media/1e747249-8014-42ac-b941-349293c4d846/embed" style="overflow:hidden;" type="text/html" webkitallowfullscreen
+                                width="458"></iframe>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="{{ url_for('static',filename='js/update.js') }}"></script>
+{% endblock %}
+

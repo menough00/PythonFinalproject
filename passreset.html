@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}- password reset{% endblock %}
+{% block main %}
+<div class="card" >
+  <ul class="list-group list-group-flush">
+
+      <form action="/passreset" method="post">
+           <li class="list-group-item">
+         <div class=" row no-gutter">
+             <div  class="col-12">
+                <div class="form-group">
+				<label id="label-username" for="username">Enter username to see security questions: </label>
+				<input type="text" class="form-control" id="username" name="username"
+				required>
+			</div>
+            </div>
+        </div>
+    </li>
+           <li class="list-group-item">
+         <div class=" row no-gutter">
+            <div class="col-4">Security Question #1: </div>
+            <div class="col-8">
+                <div class="form-group">
+				<label id="label-q1" for="sec-a1">Waiting for username.</label>
+				<input type="password" class="form-control" id="sec-a1" name="sec-a1"
+				required>
+			</div>
+            </div>
+        </div>
+    </li>
+          <li class="list-group-item">
+         <div class=" row no-gutter">
+            <div class="col-4">Security Question #2: </div>
+            <div class="col-8">
+                <div class="form-group">
+				<label id="label-q2" for="sec-a2">Waiting for username.</label>
+				<input type="password" class="form-control" id="sec-a2" name="sec-a2"
+				required>
+			</div>
+            </div>
+        </div>
+    </li>
+      <li class="list-group-item">
+         <div class=" row no-gutter">
+            <div class="col-4">Update password:</div>
+            <div class="col-8">
+
+
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" class="form-control" id="password" name="password"
+				required>
+			</div>
+			<div class="form-group">
+				<label for="confirm">Repeat Password</label>
+				<input type="password" class="form-control" id="confirm" name="confirm" required>
+			</div>
+
+            </div>
+        </div>
+
+    </li>
+          <li class="list-group-item">
+         <div class=" row no-gutter d-flex justify-content-center">
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="Cancel" class="btn btn-primary">Cancel</button>
+         </div>
+          </li>
+      </form>
+  </ul>
+</div>
+{% endblock %}
+{% block js %}
+<script src="{{ url_for('static',filename='js/passreset.js') }}"></script>
+{% endblock %}
+

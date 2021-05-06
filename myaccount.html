@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}- myaccount{% endblock %}
+{% block main %}
+<div class="card" >
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+        <div class=" row no-gutter">
+            <div class="col-4">Username:</div>
+            <div class="col-8">{{user["username"]}}</div>
+        </div>
+    </li>
+    <li class="list-group-item">
+         <div class=" row no-gutter">
+            <div class="col-4">Name:</div>
+            <div class="col-8">{{user["name"]}}</div>
+        </div>
+    </li>
+    <li class="list-group-item">
+         <div class=" row no-gutter">
+            <div class="col-4">Email:</div>
+            <div class="col-8">{{user["email"]}}</div>
+        </div>
+    </li>
+      <li class="list-group-item">
+         <div class=" row no-gutter">
+            <div class="col-4">Update password:</div>
+            <div class="col-8">
+                <form action="/myaccount" method="post">
+
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" class="form-control" id="password" name="password"
+				required>
+			</div>
+			<div class="form-group">
+				<label for="confirm">Repeat Password</label>
+				<input type="password" class="form-control" id="confirm" name="confirm" required>
+			</div>
+
+			<button type="submit" class="btn btn-primary">Submit</button>
+			<button type="Cancel" class="btn btn-primary">Cancel</button>
+		</form>
+            </div>
+        </div>
+    </li>
+  </ul>
+</div>
+{% endblock %}

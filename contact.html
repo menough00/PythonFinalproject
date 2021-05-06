@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}- contact{% endblock %}
+{% block main %}
+
+<div class="card col-12 col-md-8 col-lg-6 mx-auto">
+      <div class="card-body">
+        <h5 class="card-title">Contact Us</h5>
+
+        <form action="https://formspree.io/f/xjvjgvjk" method="post">
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input class="form-control" id="email" name="email" placeholder="name@example.com" type="email">
+            </div>
+            <div class="form-group">
+                <label for="rating">Rate MyPantryy</label>
+                <select class="form-control" id="rating" name="rating">
+                    <option value="1"> &#9733; </option>
+                    <option value="2"> &#9733; &#9733;</option>
+                    <option value="3"> &#9733; &#9733; &#9733;</option>
+                    <option value="4"> &#9733; &#9733; &#9733; &#9733;</option>
+                    <option value="5" selected> &#9733; &#9733; &#9733; &#9733; &#9733; </option>
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="comment">Tells us about your experience or ask a question?</label>
+                <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+			<button type="Cancel" class="btn btn-primary">Cancel</button>
+        </form>
+
+    </div>
+</div>
+{% endblock %}
